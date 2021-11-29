@@ -13,10 +13,10 @@ const headerProfileElement = document.querySelector('.header');
 renderTemplate(siteMainElement, createSiteMenuTemplate(), renderPosition.BEFOREEND);
 renderTemplate(headerProfileElement, createUserTitleTemplate(), renderPosition.BEFOREEND);
 renderTemplate(siteMainElement, createFilmsListTemplate(),renderPosition.BEFOREEND);
-const doc = document.querySelector('.films-list__container');
+const filmsListElement = document.querySelector('.films-list__container');
 
 for(let i = 0; i < NUMBER_OF_CARDS; i++){
-  renderTemplate(doc, createCardList(),renderPosition.BEFOREEND);
+  renderTemplate(filmsListElement, createCardList(),renderPosition.BEFOREEND);
 }
 
 renderTemplate(siteMainElement, createButtonTemplate(), renderPosition.BEFOREEND);
