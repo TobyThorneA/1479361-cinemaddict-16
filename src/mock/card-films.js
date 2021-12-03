@@ -1,4 +1,4 @@
-import { getRandomInteger } from '../utils.js';
+import { getRandomInteger, generateRandomValue, generateRandomStrings } from '../utils.js';
 
 const titles = [
   'made for each other',
@@ -11,13 +11,13 @@ const titles = [
 ];
 
 const originalTitles = [
-  'original: made for each other',
-  'original: popeye meets sinbad',
-  'original: sagebrush trail',
-  'original: santa claus conquers the martians',
-  'original: the dance of the life',
-  'original: the great flamarion',
-  'original: the man with the golden arm',
+  'made for each other',
+  'popeye meets sinbad',
+  'sagebrush trail',
+  'santa claus conquers the martians',
+  'the dance of the life',
+  'the great flamarion',
+  'the man with the golden arm',
 ];
 
 const hours = [
@@ -130,13 +130,6 @@ const authors = [
   'Dwarf',
 ];
 
-const days = [
-  '5 hours ago',
-  'today',
-  '2 days ago',
-  '1 hour ago',
-  '7 days ago',
-];
 const raitings = [
   'novice',
   'fun',
@@ -150,102 +143,31 @@ const bitmaps = [
 ];
 
 const commentsClass = [
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/smile.png" width="55" height="55" alt="emoji-smile">
-            </span>
-            <div>
-              <p class="film-details__comment-text">крутой фильм виуууу</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">Вася</span>
-                <span class="film-details__comment-day">3 days ago</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`,
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/angry.png" width="55" height="55" alt="emoji-smile">
-            </span>
-            <div>
-              <p class="film-details__comment-text">Good FIIILMS</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">VADIM</span>
-                <span class="film-details__comment-day">1 hour ago</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`,
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/puke.png" width="55" height="55" alt="emoji-smile">
-            </span>
-            <div>
-              <p class="film-details__comment-text">Шикарно</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">Миха</span>
-                <span class="film-details__comment-day">today</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`,
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/sleeping.png" width="55" height="55" alt="emoji-sleeping">
-            </span>
-            <div>
-              <p class="film-details__comment-text">Very nice</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">Gora</span>
-                <span class="film-details__comment-day">7 yers ago</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`,
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/angry.png" width="55" height="55" alt="emoji-puke">
-            </span>
-            <div>
-              <p class="film-details__comment-text">GO GO GO</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">Vazasdart</span>
-                <span class="film-details__comment-day">4 hours ago</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`,
-  `<li class="film-details__comment">
-            <span class="film-details__comment-emoji">
-              <img src="./images/emoji/smile.png" width="55" height="55" alt="emoji-angry">
-            </span>
-            <div>
-              <p class="film-details__comment-text">FARAAAAAAAAA!!!</p>
-              <p class="film-details__comment-info">
-                <span class="film-details__comment-author">Artem</span>
-                <span class="film-details__comment-day">12 hours ago</span>
-                <button class="film-details__comment-delete">Delete</button>
-              </p>
-            </div>
-          </li>`
+  'Good film',
+  'Nice',
+  'asdasdas',
+  'adasdbfnfnfgnfgnfgnfgnfg',
+  'fgnfgnfgnfnegerryjykuldgsdvsdv',
+  'l.jkl.,jhmdfbsefwegr',
+  'sgdfgh,jk;.kl/rtjetjrt',
+  'asegdhfjgkluyhlgmfg',
+  'dhfgjfgjfgjktyiktyktyky',
+  'dgdfhdfjf',
+  'dghdfhdfhcvnvbmb,kluil',
+  'sdgerrtuyr6utyiuyklyuu',
+  'jhryjtyktykrdhdbhdfhdfh',
+  'fhfgjtukilui.hj,fghfgh',
+  'fhrjtykuyluytgktykt',
 
 ];
-
-const generateRandomValue = (array) => {
-  const randomIndex = getRandomInteger(0, array.length - 1);
-  return array[randomIndex];
-};
-
-const generateRandomDescriptions = (array) => {
-  const random = getRandomInteger(1,5);
-  const art = [];
-  for(let i = 0; i < random; i++){
-    const rand = Math.floor(Math.random()*array.length);
-    const rValue = array[rand];
-    art.push(rValue);
-  }
-  return art;
-};
+const commentsTime = [
+  '2 hours ago',
+  'now',
+  '3 minuts ago',
+  '5 days ago',
+  '14 days ago',
+  '1 year ago',
+];
 
 export const generateData = () => (
   {
@@ -254,14 +176,15 @@ export const generateData = () => (
     rating: getRandomInteger(1, 10),
     year: getRandomInteger(1895, 2021),
     duration: generateRandomValue(hours),
-    commentsClass: generateRandomDescriptions(commentsClass),
+    commentsClass: generateRandomStrings(commentsClass),
     genre: generateRandomValue(genres),
+    commentsTime: generateRandomValue(commentsTime),
     genres: {
       details0: generateRandomValue(genres),
       details1: generateRandomValue(genres),
       details2: generateRandomValue(genres),
     },
-    description: generateRandomDescriptions(descriptions),
+    description: generateRandomStrings(descriptions),
     comments: getRandomInteger(1, 100),
     images: generateRandomValue(imgs),
     age: generateRandomValue(ageRaitings),
@@ -272,24 +195,8 @@ export const generateData = () => (
     country: generateRandomValue(countries),
     raiting: generateRandomValue(raitings),
     bitmap: generateRandomValue(bitmaps),
-    emoji:{
-      emoji0: generateRandomValue(imagesEmojies),
-      emoji1: generateRandomValue(imagesEmojies),
-      emoji2: generateRandomValue(imagesEmojies),
-      emoji3: generateRandomValue(imagesEmojies),
-    },
-    author: {
-      author0: generateRandomValue(authors),
-      author1: generateRandomValue(authors),
-      author2: generateRandomValue(authors),
-      author3: generateRandomValue(authors)
-    },
-    day: {
-      day0: generateRandomValue(days),
-      day1: generateRandomValue(days),
-      day2: generateRandomValue(days),
-      day3: generateRandomValue(days),
-    },
+    emoji:generateRandomValue(imagesEmojies),
+    author:generateRandomValue(authors),
     watchList: getRandomInteger(10, 300),
     history: getRandomInteger(10, 300),
     favorites: getRandomInteger(10, 300),

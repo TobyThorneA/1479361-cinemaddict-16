@@ -16,7 +16,7 @@ export const createPopupTemplate = (values) => (
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
               <h3 class="film-details__title">${values.title} </h3>
-              <p class="film-details__title-original">${values.originalTitle}</p>
+              <p class="film-details__title-original">original: ${values.originalTitle}</p>
             </div>
 
             <div class="film-details__rating">
@@ -76,7 +76,7 @@ export const createPopupTemplate = (values) => (
         <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${values.comments}</span></h3>
 
         <ul class="film-details__comments-list">
-        ${values.commentsClass}
+
         </ul>
 
         <div class="film-details__new-comment">
