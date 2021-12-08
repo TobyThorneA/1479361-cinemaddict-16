@@ -34,8 +34,7 @@ const renderCardSlice = (from, to) => {
       const cardView = new CardListView(item);
       const cardElement = cardView.element.querySelector('.film-card__link');
 
-      cardElement.addEventListener('click', (evt) => {
-        evt.preventDefault();
+      cardElement.addEventListener('click', () => {
 
         const cardPopupView = new PopupView(item);
         if(cardPopupView === true){
@@ -64,15 +63,14 @@ const renderCardSlice = (from, to) => {
         cardPopupView.element.querySelector('.film-details__close-btn').addEventListener('click', onPopupClose);
 
         // module3-task2
-        // const onPopupCloseKeydown = (evt) => {
-        //   if (evt.key === 'Escape' || evt.key === 'Esc' ) {
-        //     cardPopupView.element.remove();
-        //     document.body.classList.remove('hide-overflow');
-        //     window.removeEventListener('keydown', onPopupCloseKeydown);
-        //   }
-        // };
+        //   const onPopupCloseKeydown = (evt) => {
+        //     if (evt.key === 'Escape' || evt.key === 'Esc' ) {
+        //       onPopupClose();
+        //       window.removeEventListener('keydown', onPopupCloseKeydown);
+        //     }
+        //   };
 
-        // window.addEventListener('keydown', onPopupCloseKeydown);
+        //   window.addEventListener('keydown', onPopupCloseKeydown);
 
       });
       renderElement(filmsListElement, cardView.element,renderPosition.BEFOREEND);
