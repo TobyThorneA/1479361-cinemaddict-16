@@ -1,4 +1,6 @@
-export const createCommentsList = (values) => (
+import { createElement } from '../render.js';
+
+const createCommentsList = (values) => (
 
   `<li class="film-details__comment">
             <span class="film-details__comment-emoji">
@@ -12,5 +14,29 @@ export const createCommentsList = (values) => (
                 <button class="film-details__comment-delete">Delete</button>
               </p>
             </div>
-          </li>`
-);
+          </li>`);
+
+export default class CommentsListView {
+  #element = null;
+  #value = null;
+
+  constructor(value) {
+    this.#value = value;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createCommentsList(this.#value);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

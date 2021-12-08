@@ -1,5 +1,7 @@
-export const createPopupTemplate = (values) => (
-  `section class="film-details">
+import { createElement } from '../render.js';
+
+const createPopupTemplate = (values) => (
+  `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
       <div class="film-details__close">
@@ -111,5 +113,29 @@ export const createPopupTemplate = (values) => (
       </section>
     </div>
   </form>
-</section`
-);
+</section>`);
+
+export default class PopupView {
+  #element = null;
+  #value = null;
+
+  constructor(value) {
+    this.#value = value;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createPopupTemplate(this.#value);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

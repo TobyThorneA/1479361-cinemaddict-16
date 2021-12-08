@@ -1,7 +1,7 @@
+import { createElement } from '../render.js';
 
-export const createCardList = (values) => (
-  `
-  <article class="film-card">
+const createCardList = (values) => (
+  `<article class="film-card">
           <a class="film-card__link">
             <h3 class="film-card__title">${values.title}</h3>
             <p class="film-card__rating">${values.rating}</p>
@@ -19,6 +19,29 @@ export const createCardList = (values) => (
             <button class="film-card__controls-item film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
             <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
           </div>
-        </article>
-`);
+        </article>`);
 
+export default class CardListView {
+  #element = null;
+  #value = null;
+
+  constructor(value) {
+    this.#value = value;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createCardList(this.#value);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
