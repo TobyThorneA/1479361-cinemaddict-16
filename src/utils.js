@@ -21,3 +21,22 @@ export const generateRandomStrings = (stringsArray) => {
   }
   return randomSentences.join('');
 };
+
+
+export const closePopup = (popupView) => {
+  const onPopupClose = () => {
+    popupView.element.remove();
+    document.body.classList.remove('hide-overflow');
+  };
+
+  popupView.element.querySelector('.film-details__close-btn').addEventListener('click', onPopupClose);
+
+  const onPopupCloseKeydown = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc' ) {
+      onPopupClose();
+      window.removeEventListener('keydown', onPopupCloseKeydown);
+    }
+  };
+
+  window.addEventListener('keydown', onPopupCloseKeydown);
+};

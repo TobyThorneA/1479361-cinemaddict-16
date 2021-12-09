@@ -130,7 +130,7 @@ const authors = [
   'Dwarf',
 ];
 
-const raitings = [
+const userTitles = [
   'novice',
   'fun',
   'movie buf',
@@ -168,8 +168,17 @@ const commentsTime = [
   '14 days ago',
   '1 year ago',
 ];
+export const generateDataUserProfile =() => (
+  {
+    watchList: getRandomInteger(10, 300),
+    history: getRandomInteger(10, 300),
+    favorites: getRandomInteger(10, 300),
+    userTitle: generateRandomValue(userTitles),
+    bitmap: generateRandomValue(bitmaps),
+  }
+);
 
-export const generateData = () => (
+export const generateDataCards = () => (
   {
     title: generateRandomValue(titles),
     originalTitle: generateRandomValue(originalTitles),
@@ -193,13 +202,8 @@ export const generateData = () => (
     actors: generateRandomValue(actors),
     release: generateRandomValue(reliases),
     country: generateRandomValue(countries),
-    raiting: generateRandomValue(raitings),
-    bitmap: generateRandomValue(bitmaps),
     emoji:generateRandomValue(imagesEmojies),
     author:generateRandomValue(authors),
-    watchList: getRandomInteger(10, 300),
-    history: getRandomInteger(10, 300),
-    favorites: getRandomInteger(10, 300),
     numberOfFilms: getRandomInteger(1000, 30000),
 
     isHistory: false,

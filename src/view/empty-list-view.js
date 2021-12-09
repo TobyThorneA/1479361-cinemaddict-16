@@ -1,17 +1,14 @@
 import { createElement } from '../render.js';
 
-const footerStatisticsTemplate = (values) => (
-  `<section class="footer__statistics">
-    ${values.numberOfFilms}
+const emptyListTemplate = () => (
+  `<section class="films">
+    <section class="films-list">
+      <h2 class="films-list__title">There are no movies in our database</h2>
+    </section>
   </section>`);
 
-export default class FooterStatisticsView {
+export default class EmptyListView {
   #element = null;
-  #value = null;
-
-  constructor(value) {
-    this.#value = value;
-  }
 
   get element() {
     if (!this.#element) {
@@ -22,7 +19,7 @@ export default class FooterStatisticsView {
   }
 
   get template() {
-    return footerStatisticsTemplate(this.#value);
+    return emptyListTemplate();
   }
 
   removeElement() {
