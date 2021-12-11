@@ -114,71 +114,17 @@ const countries = [
   'Russia',
   'Ukraine',
 ];
-const imagesEmojies = [
-  './images/emoji/angry.png',
-  './images/emoji/puke.png',
-  './images/emoji/sleeping.png',
-  './images/emoji/smile.png',
-];
-const authors = [
-  'Vasya',
-  'Tanya',
-  'Tolya',
-  'Kate',
-  'Simon',
-  'Slon',
-  'Dwarf',
-];
 
-const raitings = [
-  'novice',
-  'fun',
-  'movie buf',
-];
-
-const bitmaps = [
-  './images/bitmap.png',
-  './images/bitmap@2x.png',
-  './images/bitmap@2x.png',
-];
-
-const commentsClass = [
-  'Good film',
-  'Nice',
-  'asdasdas',
-  'adasdbfnfnfgnfgnfgnfgnfg',
-  'fgnfgnfgnfnegerryjykuldgsdvsdv',
-  'l.jkl.,jhmdfbsefwegr',
-  'sgdfgh,jk;.kl/rtjetjrt',
-  'asegdhfjgkluyhlgmfg',
-  'dhfgjfgjfgjktyiktyktyky',
-  'dgdfhdfjf',
-  'dghdfhdfhcvnvbmb,kluil',
-  'sdgerrtuyr6utyiuyklyuu',
-  'jhryjtyktykrdhdbhdfhdfh',
-  'fhfgjtukilui.hj,fghfgh',
-  'fhrjtykuyluytgktykt',
-
-];
-const commentsTime = [
-  '2 hours ago',
-  'now',
-  '3 minuts ago',
-  '5 days ago',
-  '14 days ago',
-  '1 year ago',
-];
-
-export const generateData = () => (
+export const getFilms = () => (
   {
     title: generateRandomValue(titles),
     originalTitle: generateRandomValue(originalTitles),
     rating: getRandomInteger(1, 10),
     year: getRandomInteger(1895, 2021),
     duration: generateRandomValue(hours),
-    commentsClass: generateRandomStrings(commentsClass),
+
     genre: generateRandomValue(genres),
-    commentsTime: generateRandomValue(commentsTime),
+
     genres: {
       details0: generateRandomValue(genres),
       details1: generateRandomValue(genres),
@@ -193,16 +139,8 @@ export const generateData = () => (
     actors: generateRandomValue(actors),
     release: generateRandomValue(reliases),
     country: generateRandomValue(countries),
-    raiting: generateRandomValue(raitings),
-    bitmap: generateRandomValue(bitmaps),
-    emoji:generateRandomValue(imagesEmojies),
-    author:generateRandomValue(authors),
-    watchList: getRandomInteger(10, 300),
-    history: getRandomInteger(10, 300),
-    favorites: getRandomInteger(10, 300),
-    numberOfFilms: getRandomInteger(1000, 30000),
-
-    isHistory: false,
-    isFavorite: false,
+    isWatchList: getRandomInteger(0,1),
+    isHistory: getRandomInteger(0,1),
+    isFavorite: getRandomInteger(0,1),
   }
 );

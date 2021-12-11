@@ -21,3 +21,33 @@ export const generateRandomStrings = (stringsArray) => {
   }
   return randomSentences.join('');
 };
+
+
+export const closePopup = (popupView) => {
+  const onPopupClose = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc' ) {
+      popupView.element.remove();
+      document.body.classList.remove('hide-overflow');
+    }
+    window.removeEventListener('keydown', onPopupClose);
+  };
+  const onPopupCloseButton = () => {
+    popupView.element.remove();
+    document.body.classList.remove('hide-overflow');
+    window.removeEventListener('keydown', onPopupClose);
+  };
+  popupView.element.querySelector('.film-details__close-btn').addEventListener('click', onPopupCloseButton);
+
+  window.addEventListener('keydown', onPopupClose);
+};
+
+export const getFiltersData = (array) => {
+  const filtersData = array.reduce((acc, film) => {
+    acc.history += film.isHistory? 1 : 0;
+    acc.watchList += film.isWatchList? 1 : 0;
+    acc.favorites += film.isFavorite? 1 : 0;
+    return acc;
+  }, {history: 0, watchList: 0, favorites: 0},
+  );
+  return filtersData;
+};
