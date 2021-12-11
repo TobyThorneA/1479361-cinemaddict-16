@@ -3,26 +3,30 @@ import CardListView from './view/film-card-view.js';
 import CommentsListView from './view/comments-popup-view';
 import EmptyListView from './view/empty-list-view.js';
 import FilmsListView from './view/films-list-view.js';
-import { generateDataCards, generateDataUserProfile } from './mock/card-films.js';
-import { getRandomInteger, closePopup } from './utils.js';
+import { getFilms } from './mock/films.js';
+import { getComments } from './mock/comments.js';
+import { getProfile } from './mock/profile.js';
+import { getRandomInteger, closePopup, getFiltersData} from './utils.js';
 import PopupView from './view/popup-view';
 import { renderPosition, renderElement } from './render.js';
 import SiteMenuView from './view/site-menu-view';
 import UserTitleView from './view/user-title-view.js';
 
-const NUMBER_OF_CARD_DISPLAYS = 0;
+const NUMBER_OF_CARD_DISPLAYS = 10;
 const NUMBER_OF_DISPLAYS = 5;
-const NUMBER_OF_USERS = 1;
+const NUMBER_OF_USERS = 5;
+const NUMBER_OF_COMMENTS = 500;
 
-const dataCards = Array.from({length: NUMBER_OF_CARD_DISPLAYS}, generateDataCards);
-const dataUserProfile = Array.from({length: NUMBER_OF_USERS}, generateDataUserProfile);
+export const dataCards = Array.from({length: NUMBER_OF_CARD_DISPLAYS}, getFilms);
+const dataUserProfile = Array.from({length: NUMBER_OF_USERS}, getProfile);
+
 
 const siteMainElement = document.querySelector('.main');
 const headerProfileElement = document.querySelector('.header');
 
 
 renderElement(headerProfileElement, (new UserTitleView(dataUserProfile[0])).element, renderPosition.BEFOREEND);
-renderElement(siteMainElement, (new SiteMenuView(dataUserProfile[0])).element, renderPosition.BEFOREEND);
+renderElement(siteMainElement, (new SiteMenuView(getFiltersData(dataCards))).element, renderPosition.BEFOREEND);
 
 const footerStatisticsElement = document.querySelector('.footer__statistics');
 
@@ -31,7 +35,7 @@ if(dataCards.length === 0){
 }
 
 renderElement(siteMainElement, (new FilmsListView()).element,renderPosition.BEFOREEND);
-renderElement(footerStatisticsElement, dataCards.length, renderPosition.BEFOREEND);
+renderElement(footerStatisticsElement, `${dataCards.length} movies inside`, renderPosition.BEFOREEND);
 
 const filmsListElement = document.querySelector('.films-list__container');
 
@@ -45,24 +49,23 @@ const renderCardSlice = (from, to) => {
       cardElement.addEventListener('click', () => {
 
         const cardPopupView = new PopupView(item);
-        if(cardPopupView === true){
-          cardPopupView.element.remove();
-        }
-
         document.body.classList.add('hide-overflow');
 
         renderElement(siteMainElement, cardPopupView.element, renderPosition.BEFOREEND);
 
         const randomNumberComments = getRandomInteger(1, 5);
+        const dataComments = Array.from({length: NUMBER_OF_COMMENTS}, getComments);
 
-        for(let i = 0; i < randomNumberComments; i++){
-          const commentsList = new CommentsListView(item);
-          const popupElement = cardPopupView.element.querySelector('.film-details__comments-list');
+        dataComments.slice(0, randomNumberComments)
+          .forEach((it) => {
+            const commentsList = new CommentsListView(it);
+            const popupElement = cardPopupView.element.querySelector('.film-details__comments-list');
 
-          renderElement(popupElement, commentsList.element, renderPosition.BEFOREEND);
-        }
+            renderElement(popupElement, commentsList.element, renderPosition.BEFOREEND);
+          });
 
         closePopup(cardPopupView);
+        // console.log(new PopupView.element());
 
       });
       renderElement(filmsListElement, cardView.element,renderPosition.BEFOREEND);

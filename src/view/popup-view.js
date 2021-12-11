@@ -1,4 +1,5 @@
 import { createElement } from '../render.js';
+// import { closePopup } from '../utils.js';
 
 const createPopupTemplate = (values) => (
   `<section class="film-details">
@@ -115,6 +116,7 @@ const createPopupTemplate = (values) => (
   </form>
 </section>`);
 
+
 export default class PopupView {
   #element = null;
   #value = null;
@@ -134,6 +136,24 @@ export default class PopupView {
   get template() {
     return createPopupTemplate(this.#value);
   }
+
+  // close (element) {
+  //   const onPopupClose = (evt) => {
+  //     if (evt.key === 'Escape' || evt.key === 'Esc' ) {
+  //       element.remove();
+  //       document.body.classList.remove('hide-overflow');
+  //     }
+  //     window.removeEventListener('keydown', onPopupClose);
+  //   };
+  //   const onPopupCloseButton = () => {
+  //     element.remove();
+  //     document.body.classList.remove('hide-overflow');
+  //     window.removeEventListener('keydown', onPopupClose);
+  //   };
+  //   element.querySelector('.film-details__close-btn').addEventListener('click', onPopupCloseButton);
+
+  //   window.addEventListener('keydown', onPopupClose);
+  // }
 
   removeElement() {
     this.#element = null;
