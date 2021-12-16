@@ -1,3 +1,5 @@
+import AbstractParrentClass from './view/abstract-parrent-class-view';
+
 export const renderPosition = {
   BEFOREBEGIN: 'beforebegin',  // вставить html непосредственно перед elem
   AFTERBEGIN: 'afterbegin',  //вставить html в начало elem
@@ -8,18 +10,21 @@ export const renderPosition = {
 
 export const renderElement = (container, element, place) => {
 
+  const parent = container instanceof AbstractParrentClass ? container.element : container;
+  const child = element instanceof AbstractParrentClass ? element.element : element;
+
   switch (place) {
     case renderPosition.BEFOREBEGIN:
-      container.beforeend(element);
+      parent.beforeend(child);
       break;
     case renderPosition.AFTERBEGIN:
-      container.prepend(element);
+      parent.prepend(child);
       break;
     case renderPosition.BEFOREEND:
-      container.append(element);
+      parent.append(child);
       break;
     case renderPosition.AFTEREND:
-      container.after(element);
+      parent.after(child);
       break;
   }
 };

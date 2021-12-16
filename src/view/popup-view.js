@@ -1,5 +1,4 @@
-import { createElement } from '../render.js';
-// import { closePopup } from '../utils.js';
+import AbstractParrentClass from './abstract-parrent-class-view';
 
 const createPopupTemplate = (values) => (
   `<section class="film-details">
@@ -117,45 +116,38 @@ const createPopupTemplate = (values) => (
 </section>`);
 
 
-export default class PopupView {
-  #element = null;
+export default class PopupView extends AbstractParrentClass {
   #value = null;
 
   constructor(value) {
+    super();
     this.#value = value;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
     return createPopupTemplate(this.#value);
   }
 
-  // close (element) {
-  //   const onPopupClose = (evt) => {
-  //     if (evt.key === 'Escape' || evt.key === 'Esc' ) {
-  //       element.remove();
-  //       document.body.classList.remove('hide-overflow');
-  //     }
-  //     window.removeEventListener('keydown', onPopupClose);
-  //   };
-  //   const onPopupCloseButton = () => {
-  //     element.remove();
-  //     document.body.classList.remove('hide-overflow');
-  //     window.removeEventListener('keydown', onPopupClose);
-  //   };
-  //   element.querySelector('.film-details__close-btn').addEventListener('click', onPopupCloseButton);
+  closeButton = (callback) => {
 
-  //   window.addEventListener('keydown', onPopupClose);
-  // }
+    this._callback.click = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);
+    window.addEventListener('keydown', this.#closeESC);
+  }
 
-  removeElement() {
-    this.#element = null;
+  #closeClickTheCross = (evt) => {
+    evt.preventDefault();
+    this.element.remove();
+    document.body.classList.remove('hide-overflow');
+    window.removeEventListener('keydown', this.#closeESC);
+  }
+
+  #closeESC = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc' ) {
+      this.element.remove();
+      document.body.classList.remove('hide-overflow');
+    }
+    window.removeEventListener('keydown', this.#closeESC);
   }
 }
+

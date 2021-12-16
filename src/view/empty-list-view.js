@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractParrentClass from './abstract-parrent-class-view';
 
 const emptyListTemplate = () => (
   `<section class="films">
@@ -7,22 +7,9 @@ const emptyListTemplate = () => (
     </section>
   </section>`);
 
-export default class EmptyListView {
-  #element = null;
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
+export default class EmptyListView extends AbstractParrentClass {
 
   get template() {
     return emptyListTemplate();
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

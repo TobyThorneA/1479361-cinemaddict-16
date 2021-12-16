@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractParrentClass from './abstract-parrent-class-view';
 
 const createSiteMenuTemplate = (values) => (
   `<nav class="main-navigation">
@@ -16,27 +16,16 @@ const createSiteMenuTemplate = (values) => (
     <li><a href="#" class="sort__button">Sort by rating</a></li>
   </ul>`);
 
-export default class SiteMenuView {
-  #element = null;
+
+export default class SiteMenuView extends AbstractParrentClass {
   #value = null;
 
   constructor(value) {
+    super();
     this.#value = value;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
     return createSiteMenuTemplate(this.#value);
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

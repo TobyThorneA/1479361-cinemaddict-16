@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractParrentClass from './abstract-parrent-class-view';
 
 const createUserTitleTemplate = (values) => (
   `<section class="header__profile profile">
@@ -6,30 +6,16 @@ const createUserTitleTemplate = (values) => (
       <img class="profile__avatar" src="${values.bitmap}" alt="Avatar" width="35" height="35">
     </section>`);
 
-export default class UserTitleView{
-  #element = null;
+export default class UserTitleView extends AbstractParrentClass{
   #value = null;
 
   constructor(value){
+    super();
     this.#value = value;
-  }
-
-  get element () {
-    if(!this.#element){
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-
   }
 
   get template(){
     return createUserTitleTemplate(this.#value);
   }
-
-  removeElement() {
-    this.#element = null;
-  }
-
 }
 
