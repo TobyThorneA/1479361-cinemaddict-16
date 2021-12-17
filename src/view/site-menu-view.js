@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parrent-class-view';
+import AbstractParrentClass from './abstract-parent-class-view';
 
 const createSiteMenuTemplate = (values) => (
   `<nav class="main-navigation">

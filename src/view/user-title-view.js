@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parrent-class-view';
+import AbstractParrentClass from './abstract-parent-class-view';
 
 const createUserTitleTemplate = (values) => (
   `<section class="header__profile profile">

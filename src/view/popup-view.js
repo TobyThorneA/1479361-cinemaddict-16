@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parrent-class-view';
+import AbstractParrentClass from './abstract-parent-class-view';
 
 const createPopupTemplate = (values) => (
   `<section class="film-details">
@@ -128,7 +128,7 @@ export default class PopupView extends AbstractParrentClass {
     return createPopupTemplate(this.#value);
   }
 
-  closeButton = (callback) => {
+  onCloseButton = (callback) => {
 
     this._callback.click = callback;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);

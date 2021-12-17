@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parrent-class-view';
+import AbstractParrentClass from './abstract-parent-class-view';
 
 const createCardList = (values) => (
   `<article class="film-card">
@@ -33,7 +33,7 @@ export default class CardListView extends AbstractParrentClass {
     return createCardList(this.#value);
   }
 
-  clickCard = (callback) => {
+  onClickCard = (callback) => {
 
     this._callback.click = callback;
 

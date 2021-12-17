@@ -1,4 +1,4 @@
-import AbstractParrentClass from './view/abstract-parrent-class-view';
+import AbstractParrentClass from './view/abstract-parent-class-view';
 
 export const renderPosition = {
   BEFOREBEGIN: 'beforebegin',  // вставить html непосредственно перед elem

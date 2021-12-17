@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parrent-class-view';
+import AbstractParrentClass from './abstract-parent-class-view';
 
 const createButtonTemplate = () => (
   '<button class="films-list__show-more">Show more</button>'
@@ -10,7 +10,7 @@ export default class ButtonView extends AbstractParrentClass {
     return createButtonTemplate();
   }
 
-  clickButton = (callback) => {
+  onClickButton = (callback) => {
 
     this._callback.click = callback;
 

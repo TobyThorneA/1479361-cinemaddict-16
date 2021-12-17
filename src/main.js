@@ -12,7 +12,7 @@ import { renderPosition, renderElement } from './render.js';
 import SiteMenuView from './view/site-menu-view';
 import UserTitleView from './view/user-title-view.js';
 
-const NUMBER_OF_CARD_DISPLAYS = 12;
+const NUMBER_OF_CARD_DISPLAYS = 22;
 const NUMBER_OF_DISPLAYS = 5;
 const NUMBER_OF_USERS = 5;
 const NUMBER_OF_COMMENTS = 500;
@@ -45,7 +45,7 @@ const renderCardSlice = (from, to) => {
     .forEach((item) => {
       const cardView = new CardListView(item);
 
-      cardView.clickCard( () => {
+      cardView.onClickCard( () => {
 
         const cardPopupView = new PopupView(item);
         document.body.classList.add('hide-overflow');
@@ -63,7 +63,7 @@ const renderCardSlice = (from, to) => {
             renderElement(popupElement, commentsList, renderPosition.BEFOREEND);
           });
 
-        cardPopupView.closeButton();
+        cardPopupView.onCloseButton();
 
       });
       renderElement(filmsListElement, cardView,renderPosition.BEFOREEND);
@@ -78,8 +78,8 @@ if(dataCards.length > NUMBER_OF_DISPLAYS){
 
   renderElement(siteMainElement, showMoreButton, renderPosition.BEFOREEND);
 
-  showMoreButton.clickButton(() => {
-    renderCardSlice(renderdataCardsCount, renderdataCardsCount = renderdataCardsCount + 5);
+  showMoreButton.onClickButton(() => {
+    renderCardSlice(renderdataCardsCount, renderdataCardsCount = renderdataCardsCount + NUMBER_OF_DISPLAYS);
 
     if(renderdataCardsCount > dataCards.length){
       showMoreButton.element.remove();
