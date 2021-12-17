@@ -6,13 +6,13 @@ import FilmsListView from './view/films-list-view.js';
 import { getFilms } from './mock/films.js';
 import { getComments } from './mock/comments.js';
 import { getProfile } from './mock/profile.js';
-import { getRandomInteger, closePopup, getFiltersData} from './utils.js';
+import { getRandomInteger, getFiltersData} from './utils.js';
 import PopupView from './view/popup-view';
 import { renderPosition, renderElement } from './render.js';
 import SiteMenuView from './view/site-menu-view';
 import UserTitleView from './view/user-title-view.js';
 
-const NUMBER_OF_CARD_DISPLAYS = 10;
+const NUMBER_OF_CARD_DISPLAYS = 22;
 const NUMBER_OF_DISPLAYS = 5;
 const NUMBER_OF_USERS = 5;
 const NUMBER_OF_COMMENTS = 500;
@@ -25,16 +25,16 @@ const siteMainElement = document.querySelector('.main');
 const headerProfileElement = document.querySelector('.header');
 
 
-renderElement(headerProfileElement, (new UserTitleView(dataUserProfile[0])).element, renderPosition.BEFOREEND);
-renderElement(siteMainElement, (new SiteMenuView(getFiltersData(dataCards))).element, renderPosition.BEFOREEND);
+renderElement(headerProfileElement, new UserTitleView(dataUserProfile[0]), renderPosition.BEFOREEND);
+renderElement(siteMainElement, new SiteMenuView(getFiltersData(dataCards)), renderPosition.BEFOREEND);
 
 const footerStatisticsElement = document.querySelector('.footer__statistics');
 
 if(dataCards.length === 0){
-  renderElement(siteMainElement, (new EmptyListView()).element,renderPosition.BEFOREEND);
+  renderElement(siteMainElement, new EmptyListView(),renderPosition.BEFOREEND);
 }
 
-renderElement(siteMainElement, (new FilmsListView()).element,renderPosition.BEFOREEND);
+renderElement(siteMainElement, new FilmsListView(),renderPosition.BEFOREEND);
 renderElement(footerStatisticsElement, `${dataCards.length} movies inside`, renderPosition.BEFOREEND);
 
 const filmsListElement = document.querySelector('.films-list__container');
@@ -44,52 +44,45 @@ const renderCardSlice = (from, to) => {
   dataCards.slice(from, to)
     .forEach((item) => {
       const cardView = new CardListView(item);
-      const cardElement = cardView.element.querySelector('.film-card__link');
 
-      cardElement.addEventListener('click', () => {
+      cardView.onClickCard( () => {
 
         const cardPopupView = new PopupView(item);
         document.body.classList.add('hide-overflow');
 
-        renderElement(siteMainElement, cardPopupView.element, renderPosition.BEFOREEND);
+        renderElement(siteMainElement, cardPopupView, renderPosition.BEFOREEND);
 
         const randomNumberComments = getRandomInteger(1, 5);
         const dataComments = Array.from({length: NUMBER_OF_COMMENTS}, getComments);
 
         dataComments.slice(0, randomNumberComments)
           .forEach((it) => {
-            const commentsList = new CommentsListView(it);
+            const commentsList = new CommentsListView(it).element;
             const popupElement = cardPopupView.element.querySelector('.film-details__comments-list');
 
-            renderElement(popupElement, commentsList.element, renderPosition.BEFOREEND);
+            renderElement(popupElement, commentsList, renderPosition.BEFOREEND);
           });
 
-        closePopup(cardPopupView);
-        // console.log(new PopupView.element());
+        cardPopupView.onCloseButton();
 
       });
-      renderElement(filmsListElement, cardView.element,renderPosition.BEFOREEND);
+      renderElement(filmsListElement, cardView,renderPosition.BEFOREEND);
 
     });
 };
 renderCardSlice(0,5);
 
-let showMoreButton = siteMainElement.querySelector('.films-list__show-more');
-
-
 if(dataCards.length > NUMBER_OF_DISPLAYS){
-  const renderdataCardsCount = NUMBER_OF_DISPLAYS;
+  let renderdataCardsCount = NUMBER_OF_DISPLAYS;
+  const showMoreButton = new ButtonView();
 
-  renderElement(siteMainElement, new ButtonView().element, renderPosition.BEFOREEND);
+  renderElement(siteMainElement, showMoreButton, renderPosition.BEFOREEND);
 
-  showMoreButton = siteMainElement.querySelector('.films-list__show-more');
+  showMoreButton.onClickButton(() => {
+    renderCardSlice(renderdataCardsCount, renderdataCardsCount = renderdataCardsCount + NUMBER_OF_DISPLAYS);
 
-  showMoreButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    renderCardSlice(renderdataCardsCount, renderdataCardsCount + NUMBER_OF_DISPLAYS);
-
-    if(renderdataCardsCount >= dataCards.length){
-      showMoreButton.remove();
+    if(renderdataCardsCount > dataCards.length){
+      showMoreButton.element.remove();
     }
   });
 }

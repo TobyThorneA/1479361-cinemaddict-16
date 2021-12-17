@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createCardList = (values) => (
   `<article class="film-card">
@@ -21,27 +21,28 @@ const createCardList = (values) => (
           </div>
         </article>`);
 
-export default class CardListView {
-  #element = null;
+export default class CardListView extends AbstractParentClass {
   #value = null;
 
   constructor(value) {
+    super();
     this.#value = value;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
     return createCardList(this.#value);
   }
 
-  removeElement() {
-    this.#element = null;
+  onClickCard = (callback) => {
+
+    this._callback.click = callback;
+
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#clickHandler);
+  }
+
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.click();
   }
 }

@@ -22,25 +22,6 @@ export const generateRandomStrings = (stringsArray) => {
   return randomSentences.join('');
 };
 
-
-export const closePopup = (popupView) => {
-  const onPopupClose = (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc' ) {
-      popupView.element.remove();
-      document.body.classList.remove('hide-overflow');
-    }
-    window.removeEventListener('keydown', onPopupClose);
-  };
-  const onPopupCloseButton = () => {
-    popupView.element.remove();
-    document.body.classList.remove('hide-overflow');
-    window.removeEventListener('keydown', onPopupClose);
-  };
-  popupView.element.querySelector('.film-details__close-btn').addEventListener('click', onPopupCloseButton);
-
-  window.addEventListener('keydown', onPopupClose);
-};
-
 export const getFiltersData = (array) => {
   const filtersData = array.reduce((acc, film) => {
     acc.history += film.isHistory? 1 : 0;
