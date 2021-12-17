@@ -1,4 +1,4 @@
-import AbstractParrentClass from './view/abstract-parent-class-view';
+import AbstractParentClass from './view/abstract-parent-class-view';
 
 export const renderPosition = {
   BEFOREBEGIN: 'beforebegin',  // вставить html непосредственно перед elem
@@ -10,8 +10,8 @@ export const renderPosition = {
 
 export const renderElement = (container, element, place) => {
 
-  const parent = container instanceof AbstractParrentClass ? container.element : container;
-  const child = element instanceof AbstractParrentClass ? element.element : element;
+  const parent = container instanceof AbstractParentClass ? container.element : container;
+  const child = element instanceof AbstractParentClass ? element.element : element;
 
   switch (place) {
     case renderPosition.BEFOREBEGIN:

@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createFilmsListTemplate = () => (
   `<section class="films">
@@ -9,7 +9,7 @@ const createFilmsListTemplate = () => (
 </section>
 </section>`);
 
-export default class FilmsListView extends AbstractParrentClass {
+export default class FilmsListView extends AbstractParentClass {
 
   get template() {
     return createFilmsListTemplate();

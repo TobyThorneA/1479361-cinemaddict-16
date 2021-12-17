@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createCardList = (values) => (
   `<article class="film-card">
@@ -21,7 +21,7 @@ const createCardList = (values) => (
           </div>
         </article>`);
 
-export default class CardListView extends AbstractParrentClass {
+export default class CardListView extends AbstractParentClass {
   #value = null;
 
   constructor(value) {

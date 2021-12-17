@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createPopupTemplate = (values) => (
   `<section class="film-details">
@@ -116,7 +116,7 @@ const createPopupTemplate = (values) => (
 </section>`);
 
 
-export default class PopupView extends AbstractParrentClass {
+export default class PopupView extends AbstractParentClass {
   #value = null;
 
   constructor(value) {

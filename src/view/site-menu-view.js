@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createSiteMenuTemplate = (values) => (
   `<nav class="main-navigation">
@@ -17,7 +17,7 @@ const createSiteMenuTemplate = (values) => (
   </ul>`);
 
 
-export default class SiteMenuView extends AbstractParrentClass {
+export default class SiteMenuView extends AbstractParentClass {
   #value = null;
 
   constructor(value) {

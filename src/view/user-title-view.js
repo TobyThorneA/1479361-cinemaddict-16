@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const createUserTitleTemplate = (values) => (
   `<section class="header__profile profile">
@@ -6,7 +6,7 @@ const createUserTitleTemplate = (values) => (
       <img class="profile__avatar" src="${values.bitmap}" alt="Avatar" width="35" height="35">
     </section>`);
 
-export default class UserTitleView extends AbstractParrentClass{
+export default class UserTitleView extends AbstractParentClass{
   #value = null;
 
   constructor(value){

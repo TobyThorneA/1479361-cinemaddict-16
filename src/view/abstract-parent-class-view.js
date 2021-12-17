@@ -1,11 +1,11 @@
 import { createElement } from '../render.js';
 
-export default class AbstractParrentClass {
+export default class AbstractParentClass {
   #element = null;
   _callback = {};
 
   constructor () {
-    if(new.target === AbstractParrentClass) {
+    if(new.target === AbstractParentClass) {
 
       throw new Error('нельзя создать экземпляр абстрактнго класса');
 

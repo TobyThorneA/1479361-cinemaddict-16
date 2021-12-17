@@ -1,4 +1,4 @@
-import AbstractParrentClass from './abstract-parent-class-view';
+import AbstractParentClass from './abstract-parent-class-view';
 
 const emptyListTemplate = () => (
   `<section class="films">
@@ -7,7 +7,7 @@ const emptyListTemplate = () => (
     </section>
   </section>`);
 
-export default class EmptyListView extends AbstractParrentClass {
+export default class EmptyListView extends AbstractParentClass {
 
   get template() {
     return emptyListTemplate();
