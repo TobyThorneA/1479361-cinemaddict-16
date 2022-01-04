@@ -133,6 +133,9 @@ export default class PopupView extends AbstractParentClass {
     this._callback.click = callback;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);
     window.addEventListener('keydown', this.#closeESC);
+    this.#clickWatchList();
+    this.#clickWatched();
+    this.#clickFavorite();
   }
 
   #closeClickTheCross = (evt) => {
@@ -149,5 +152,24 @@ export default class PopupView extends AbstractParentClass {
     }
     window.removeEventListener('keydown', this.#closeESC);
   }
+
+  #clickWatchList = () => {
+    this.element.querySelector('#watchlist').addEventListener('click', () => {
+      console.log('watchlist');
+    });
+  }
+
+  #clickWatched = () => {
+    this.element.querySelector('#watched').addEventListener('click', () => {
+      console.log('Watched');
+    });
+  }
+
+  #clickFavorite = () => {
+    this.element.querySelector('#favorite').addEventListener('click', () => {
+      console.log('Favorite');
+    });
+  }
+
 }
 

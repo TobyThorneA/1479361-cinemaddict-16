@@ -1,5 +1,5 @@
 import { getRandomInteger, generateRandomValue, generateRandomStrings } from '../utils.js';
-
+import { nanoid } from 'nanoid';
 const titles = [
   'made for each other',
   'popeye meets sinbad',
@@ -117,11 +117,13 @@ const countries = [
 
 export const getFilms = () => (
   {
+    id: nanoid(),
     title: generateRandomValue(titles),
     originalTitle: generateRandomValue(originalTitles),
     rating: getRandomInteger(1, 10),
     year: getRandomInteger(1895, 2021),
     duration: generateRandomValue(hours),
+    string: '',
 
     genre: generateRandomValue(genres),
 
