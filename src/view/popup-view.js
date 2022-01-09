@@ -67,9 +67,9 @@ const createPopupTemplate = (values) => (
       </div>
 
       <section class="film-details__controls">
-        <button type="button" class="film-details__control-button film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
-        <button type="button" class="film-details__control-button film-details__control-button--active film-details__control-button--watched" id="watched" name="watched">Already watched</button>
-        <button type="button" class="film-details__control-button film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
+        <button type="button" class="film-details__control-button ${values.isWatchList? 'film-details__control-button--active' : ''}  film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
+        <button type="button" class="film-details__control-button ${values.isHistory? 'film-details__control-button--active' : ''} film-details__control-button--watched" id="watched" name="watched">Already watched</button>
+        <button type="button" class="film-details__control-button ${values.isFavorite? 'film-details__control-button--active' : ''} film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
       </section>
     </div>
 
@@ -118,6 +118,7 @@ const createPopupTemplate = (values) => (
 
 export default class PopupView extends AbstractParentClass {
   #value = null;
+  puk;
 
   constructor(value) {
     super();
@@ -133,9 +134,7 @@ export default class PopupView extends AbstractParentClass {
     this._callback.click = callback;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);
     window.addEventListener('keydown', this.#closeESC);
-    this.#clickWatchList();
-    this.#clickWatched();
-    this.#clickFavorite();
+
   }
 
   #closeClickTheCross = (evt) => {
@@ -143,6 +142,7 @@ export default class PopupView extends AbstractParentClass {
     this.element.remove();
     document.body.classList.remove('hide-overflow');
     window.removeEventListener('keydown', this.#closeESC);
+
   }
 
   #closeESC = (evt) => {
@@ -151,24 +151,52 @@ export default class PopupView extends AbstractParentClass {
       document.body.classList.remove('hide-overflow');
     }
     window.removeEventListener('keydown', this.#closeESC);
+
   }
 
-  #clickWatchList = () => {
-    this.element.querySelector('#watchlist').addEventListener('click', () => {
-      console.log('watchlist');
-    });
+  clickWatchList = (callback) => {
+
+    this._callback.clickWatchList = callback;
+
+    this.element.querySelector('#watchlist').addEventListener('click', this.#clickHandlerWatchList );
+
   }
 
-  #clickWatched = () => {
-    this.element.querySelector('#watched').addEventListener('click', () => {
-      console.log('Watched');
-    });
+  #clickHandlerWatchList = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickWatchList();
   }
 
-  #clickFavorite = () => {
-    this.element.querySelector('#favorite').addEventListener('click', () => {
-      console.log('Favorite');
-    });
+   clickWatched = (callback) => {
+
+     this._callback.clickWatched = callback;
+
+     this.element.querySelector('#watched').addEventListener('click', this.#clickHandlerWatched);
+
+   }
+
+  #clickHandlerWatched = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickWatched();
+  }
+
+   clickFavorite = (callback) => {
+
+     this._callback.clickFavorite = callback;
+
+     this.element.querySelector('#favorite').addEventListener('click', this.#clickHandlerFavorite );
+
+   }
+
+  #clickHandlerFavorite = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickFavorite();
   }
 
 }

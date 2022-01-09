@@ -8,7 +8,7 @@ import { renderPosition, renderElement } from '../render.js';
 import SiteMenuView from '../view/site-menu-view';
 import SortView from '../view/sort-view.js';
 import FilmPresenter from './film-presenter.js';
-import { remove, replace, updateItem } from '../utils.js';
+import { remove, /*replace,*/ updateItem } from '../utils.js';
 
 
 const NUMBER_OF_DISPLAYS = 5;
@@ -21,13 +21,19 @@ export default class FilmListPresenter {
 
   #numberOfDisplays = NUMBER_OF_DISPLAYS;
   #showMoreButton = new ButtonView();
-  #filmsListComponent = new FilmsListView()
-  #cardComponent= null;
-  #cardPopupComponent = null;
-  #filmPresenterComponent = null;
+  filmsListView = null;
+  #siteMenuView = null;
+  #cardView= null;
+  #cardPopupView = null;
+  #filmPresenterView = null;
+  #sortMenuView = null;
+  #defaultFilmsList = [];
+  #sortByDefault = null;
 
+  startOfTheList = 0;
   from = 0;
   to = 5;
+
 
   constructor (filmsContainer) {
     this.#filmsContainer = filmsContainer;
@@ -35,6 +41,7 @@ export default class FilmListPresenter {
   }
 
   #filmsList = []
+  #filmsListSort = []
 
   init = (filmsList) => {
     this.#filmsList = [...filmsList];
@@ -43,24 +50,40 @@ export default class FilmListPresenter {
     this.#renderFilmsList();
     this.#renderShowMoreButton();
 
+    this.#defaultFilmsList = [...filmsList];
+
     if(this.#filmsList.length === 0){
       this.#emptyList();
     }else{
-      this.#renderCardsFilmList();
+
+      this.#renderCardsFilmList(this.startOfTheList, this.to);
+
     }
 
   }
 
-  reinit = (newFilmsList) => {
-    this.#filmsList = [...newFilmsList];
+  reinit = (filmsListSort) => {
+    this.#filmsList = [...filmsListSort];
+    this.#filmsListSort = [...filmsListSort];
+    // this.#defaultFilmsList = [...filmsListSort];
+    this.#renderSiteMenu();
+    this.#renderSortMenu();
+    this.#renderFilmsList();
     this.#renderShowMoreButton();
+    // console.log('defaultFilmList', this.#defaultFilmsList)
+    // console.log('filmsList1', this.#filmsList)
 
-    if(this.#filmsList.length === 0){
+
+    if(this.#filmsListSort.length === 0){
       this.#emptyList();
     }else{
-      this.#renderCardsFilmList();
+
+      this.#renderCardsFilmList(this.startOfTheList, 5);
+      // this.#renderShowMoreButton();
+
     }
-  };
+
+  }
 
 
   #emptyList = () => {
@@ -70,104 +93,151 @@ export default class FilmListPresenter {
   }
 
   #renderSiteMenu = () => {
-    renderElement(this.#filmsContainer, new SiteMenuView(getFiltersData(this.#filmsList)), renderPosition.BEFOREEND);
+    remove(this.#siteMenuView);
+    this.#siteMenuView = new SiteMenuView(getFiltersData(this.#filmsList));
+    renderElement(this.#filmsContainer, this.#siteMenuView, renderPosition.BEFOREEND);
   }
 
   #renderSortMenu = () => {
-    renderElement(this.#filmsContainer, new SortView(), renderPosition.BEFOREEND);
+    remove(this.#sortMenuView);
+    this.#sortMenuView = new SortView();
+    renderElement(this.#filmsContainer, this.#sortMenuView, renderPosition.BEFOREEND);
   }
 
   #renderFilmsList = () => {
-    renderElement(this.#filmsContainer, this.#filmsListComponent,renderPosition.BEFOREEND);
+    remove(this.filmsListView);
+
+    this.filmsListView = new FilmsListView();
+    renderElement(this.#filmsContainer, this.filmsListView,renderPosition.BEFOREEND);
+
   }
 
-  #queryId = (itId, arrId,cardView) => {
-    if(itId.id === arrId.id){
-      remove(cardView);
-    }
-  }
 
   #renderCardFilm = (filmList) => {
 
-    this.#cardComponent = new CardListView(filmList);
+
+    this.#cardView = new CardListView(filmList);
 
 
-    this.#cardPopupComponent = new PopupView(filmList);
-    this.#filmPresenterComponent = new FilmPresenter(this.#filmsContainer);
+    this.#cardView.onClickCard(() => {
 
-    this.#filmPresenterComponent.init(this.#cardComponent, this.#cardPopupComponent);
+      this.#filmPresenterView = new FilmPresenter(this.#filmsContainer, () => this.renderButtons(filmList), () => this.reRenderPopup(filmList), this.#filmsList);
 
-    renderElement(this.#filmsListComponent, this.#cardComponent,renderPosition.BEFOREEND);
+      remove(this.#cardPopupView);
+      this.#cardPopupView = new PopupView(filmList);
+      this.#filmPresenterView.init(this.#cardPopupView, filmList);
 
-
-    this.#popupPresenter.set(filmList.id, this.#cardComponent);
-
-    this.#cardComponent.onClickFavorite(() => {
-      renderElement(this.#filmsListComponent, this.#cardComponent,renderPosition.BEFOREEND);
-      remove(this.#cardPopupComponent)
-
-      // if(this.#filmPresenterComponent === null){
-      //   this.#filmPresenterComponent.init(this.#cardComponent, this.#cardPopupComponent);
-      // }
 
     });
 
-    this.#cardComponent.onClickWatchList(()=>{
+    renderElement(this.filmsListView, this.#cardView,renderPosition.BEFOREEND);
 
 
-      const newFilmsList = this.#filmsList.map((arg) => {
-        // this.renderClassButton(filmList, arg)
-        if(filmList.id === arg.id){
-      this.#clearFilmList();
-      if(filmList.string === ''){
-        filmList.string = 'film-card__controls-item--active';
-      }else{
-        filmList.string = '';
-      }
+    this.#popupPresenter.set(filmList.id, this.#cardView.onClickWatchList());
 
-      return filmList;
+    this.#clickButtonsFilmsList(filmList);
 
-    }else{
-      return arg;
-    }
+    this.#sortMenuView
+      .onClickSortRating(() => {
 
+        this.sortByRating();
       });
-      console.log('newFilmsList', newFilmsList)
-      this.reinit(newFilmsList);
 
+    this.#sortMenuView
+      .onClickSortDate(() => {
+        this.sortByDate();
+      });
+
+    this.#sortMenuView
+      .onClickSortDefault(() => {
+        this.sortByDefault();
+      });
+
+
+    renderElement(this.filmsListView, this.#cardView,renderPosition.BEFOREEND);
+
+  }
+
+  reRenderPopup = (filmList) => {
+    remove(this.#cardPopupView);
+    this.#cardPopupView = new PopupView(filmList);
+    this.#filmPresenterView.init(this.#cardPopupView );
+
+  }
+
+  renderButtons = (filmList, reRender ) => {
+
+    const newFilmsList = this.#filmsList.map((arg) => {
+      if(filmList.id === arg.id){
+
+        filmList = reRender;
+
+        return filmList;
+
+      }else{
+        return arg;
+      }
+
+    });
+
+    this.init(newFilmsList);
+
+    if(this.#cardPopupView){
+      remove(this.#cardPopupView);
+      this.#cardPopupView = new PopupView(filmList);
+      this.#filmPresenterView.init(this.#cardPopupView );
+    }
+  }
+
+  renderButtons = (filmList ) => {
+
+    const newFilmsList = this.#filmsList.map((arg) => {
+      if(filmList.id === arg.id){
+
+        return {...arg, isWatchList : !arg.isWatchList};
+
+
+      }
+
+      return arg;
 
 
     });
-    renderElement(this.#filmsListComponent, this.#cardComponent,renderPosition.BEFOREEND);
-  }
 
-  renderClassButton = (filmList, arg) => {
-    if(filmList.id === arg.id){
-      this.#clearFilmList();
-      if(filmList.string === ''){
-        filmList.string = 'film-card__controls-item--active';
-      }else{
-        filmList.string = '';
-      }
+    this.init(newFilmsList);
 
-      return filmList;
-
-    }else{
-      return arg;
+    if(this.#cardPopupView){
+      remove(this.#cardPopupView);
+      this.#cardPopupView = new PopupView(filmList);
+      this.#filmPresenterView.init(this.#cardPopupView );
     }
   }
 
 
-  destroy = () => {
-    remove(this.#cardComponent);
-    remove(this.#cardPopupComponent);
+  #clickButtonsFilmsList = (filmList) => {
+
+    const isWatchList = ({...filmList, isWatchList : !filmList.isWatchList});
+    const isHistory = ({...filmList, isHistory : !filmList.isHistory});
+    const isFavorite = ({...filmList, isFavorite : !filmList.isFavorite});
+
+    this.#cardView.onClickWatchList(() => {
+      this.renderButtons(filmList, isWatchList);
+    });
+
+    this.#cardView.onClickWatched(() => {
+      this.renderButtons(filmList, isHistory);
+    });
+
+    this.#cardView.onClickFavorite(() => {
+      this.renderButtons(filmList, isFavorite);
+    });
+
   }
 
 
-  #renderCardsFilmList = () => {
-
+  #renderCardsFilmList = (from, to) => {
     this.#filmsList
-      .slice(this.from, this.to)
+      .slice(from, to)
       .forEach((item) => {
         this.#renderCardFilm(item);
       });
@@ -176,6 +246,7 @@ export default class FilmListPresenter {
       this.#showMoreButton.element.remove();
     }
   };
+
 
   #clearFilmList = () => {
     this.#popupPresenter.forEach((presenter) => remove(presenter));
@@ -187,9 +258,10 @@ export default class FilmListPresenter {
   #handleShowMoreButtonClick = () => this.#showMoreButton.onClickButton(() => {
     this.from = this.from + this.#numberOfDisplays;
     this.to = this.from + this.#numberOfDisplays;
-    this.#renderCardsFilmList();
+    this.#renderCardsFilmList(this.from, this.to);
 
   });
+
 
   #renderShowMoreButton = () => {
     if(this.#filmsList.length > this.#numberOfDisplays){
@@ -204,6 +276,24 @@ export default class FilmListPresenter {
   #handleFilmChange = (updatedFilm)=> {
     this.#filmsList = updateItem(this.#filmsList, updatedFilm);
     this.#popupPresenter.get(updatedFilm.id).init(updatedFilm);
+  }
+
+  sortByRating = () => {
+    const sortByRating = this.#filmsList;
+    sortByRating.sort((prev, next) => next.rating - prev.rating);
+    this.reinit(sortByRating);
+  }
+
+  sortByDate = () => {
+    // if(this.#filmsListSort === this.#filmsList){console.log('render')}else{console.log('not render')}
+    const sortByDate = this.#filmsList;
+    sortByDate.sort((prev, next) => next.year - prev.year);
+    this.reinit(sortByDate);
+  }
+
+  sortByDefault = () => {
+    // console.log(this.#filmsListSort, this.#defaultFilmsList)
+    this.init(this.#defaultFilmsList);
   }
 
 }
