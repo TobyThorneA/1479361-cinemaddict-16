@@ -1,5 +1,6 @@
 import AbstractParentClass from './abstract-parent-class-view';
 
+
 const createPopupTemplate = (values) => (
   `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
@@ -54,9 +55,9 @@ const createPopupTemplate = (values) => (
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                <span class="film-details__genre">${values.genres.details0}</span>
-                <span class="film-details__genre">${values.genres.details1}</span>
-                <span class="film-details__genre">${values.genres.details2}</span></td>
+                <span class="film-details__genre">${values.genre}</span>
+                <span class="film-details__genre"></span>
+                <span class="film-details__genre"></span></td>
             </tr>
           </table>
 
@@ -67,9 +68,9 @@ const createPopupTemplate = (values) => (
       </div>
 
       <section class="film-details__controls">
-        <button type="button" class="film-details__control-button film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
-        <button type="button" class="film-details__control-button film-details__control-button--active film-details__control-button--watched" id="watched" name="watched">Already watched</button>
-        <button type="button" class="film-details__control-button film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
+        <button type="button" class="film-details__control-button ${values.isWatchList? 'film-details__control-button--active' : ''}  film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
+        <button type="button" class="film-details__control-button ${values.isHistory? 'film-details__control-button--active' : ''} film-details__control-button--watched" id="watched" name="watched">Already watched</button>
+        <button type="button" class="film-details__control-button ${values.isFavorite? 'film-details__control-button--active' : ''} film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
       </section>
     </div>
 
@@ -133,6 +134,8 @@ export default class PopupView extends AbstractParentClass {
     this._callback.click = callback;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);
     window.addEventListener('keydown', this.#closeESC);
+
+
   }
 
   #closeClickTheCross = (evt) => {
@@ -140,6 +143,7 @@ export default class PopupView extends AbstractParentClass {
     this.element.remove();
     document.body.classList.remove('hide-overflow');
     window.removeEventListener('keydown', this.#closeESC);
+
   }
 
   #closeESC = (evt) => {
@@ -148,6 +152,53 @@ export default class PopupView extends AbstractParentClass {
       document.body.classList.remove('hide-overflow');
     }
     window.removeEventListener('keydown', this.#closeESC);
+
   }
+
+  onClickWatchList = (callback) => {
+
+    this._callback.clickWatchList = callback;
+
+    this.element.querySelector('#watchlist').addEventListener('click', this.#clickHandlerWatchList );
+
+  }
+
+  #clickHandlerWatchList = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickWatchList();
+  }
+
+   onClickWatched = (callback) => {
+
+     this._callback.clickWatched = callback;
+
+     this.element.querySelector('#watched').addEventListener('click', this.#clickHandlerWatched);
+
+   }
+
+  #clickHandlerWatched = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickWatched();
+  }
+
+   onClickFavorite = (callback) => {
+
+     this._callback.clickFavorite = callback;
+
+     this.element.querySelector('#favorite').addEventListener('click', this.#clickHandlerFavorite );
+
+   }
+
+  #clickHandlerFavorite = (evt) => {
+
+    evt.preventDefault();
+
+    this._callback.clickFavorite();
+  }
+
 }
 
