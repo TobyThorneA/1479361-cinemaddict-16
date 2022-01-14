@@ -1,4 +1,4 @@
-import { generateRandomValue, generateRandomStrings } from '../utils.js';
+import { generateRandomValue, createRandomValues } from '../utils.js';
 
 const commentsClass = [
   'Good film',
@@ -46,7 +46,7 @@ const authors = [
 
 export const getComments = () => (
   {
-    commentsClass: generateRandomStrings(commentsClass),
+    commentsClass: createRandomValues(commentsClass),
     commentsTime: generateRandomValue(commentsTime),
     emoji:generateRandomValue(imagesEmojies),
     author:generateRandomValue(authors),

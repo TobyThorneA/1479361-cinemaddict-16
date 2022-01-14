@@ -1,6 +1,25 @@
 import AbstractParentClass from './abstract-parent-class-view';
 import { remove } from '../utils';
 
+const MAX_DESCRIPTION_LENGTH = 140;
+
+const cutDescription = (description) => {
+
+  // let shortDescription = null;
+  // description.forEach((item) => {
+  //   shortDescription = item.length > MAX_DESCRIPTION_LENGTH
+  //     ? `${item.slice(0, MAX_DESCRIPTION_LENGTH - 1)}(...)`
+  //     : item;
+  // });
+  // return shortDescription;
+
+
+  const shortDescription = description.length > MAX_DESCRIPTION_LENGTH
+    ? `${description.slice(0, MAX_DESCRIPTION_LENGTH - 1)}(...)`
+    : description;
+  return shortDescription;
+};
+
 const createCardList = (values) => (
   `<article class="film-card">
           <a class="film-card__link">
@@ -12,7 +31,7 @@ const createCardList = (values) => (
               <span class="film-card__genre">${values.genre}</span>
             </p>
             <img src="${values.images}" alt="" class="film-card__poster">
-            <p class="film-card__description">${values.description.slice(0, 10)}</p>
+            <p class="film-card__description">${cutDescription(values.description)}</p>
             <span class="film-card__comments">${values.comments} comments</span>
           </a>
           <div class="film-card__controls">
@@ -48,7 +67,6 @@ export default class CardListView extends AbstractParentClass {
     this.element.querySelector('.film-card__link').addEventListener('click', this.#clickHandler);
 
   }
-
 
   onClickWatchList = (callback) => {
 

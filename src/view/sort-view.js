@@ -2,7 +2,7 @@ import AbstractParentClass from './abstract-parent-class-view';
 
 const createSort = () => `
 <ul class="sort">
-    <li><a href="#" class="sort__button3 sort__button--active"> Sort by default </a></li>
+    <li><a href="#" class="sort__button3  sort__button--active"> Sort by default </a></li>
     <li><a href="#" class="sort__button2"> Sort by date </a></li>
     <li><a href="#" class="sort__button1"> Sort by rating </a></li>
   </ul>

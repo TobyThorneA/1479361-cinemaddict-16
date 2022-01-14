@@ -1,5 +1,19 @@
 import AbstractParentClass from './abstract-parent-class-view';
 
+const renderGenres = (genres) => {
+  const array = [];
+  if(genres < genres[1]){
+    array.push(genres);
+  }else{
+    array.push(genres);
+  }
+console.log('genres',genres)
+  console.log('array',array);
+
+  return array;
+}
+
+
 const createPopupTemplate = (values) => (
   `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
@@ -54,9 +68,9 @@ const createPopupTemplate = (values) => (
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                <span class="film-details__genre">${values.genres.details0}</span>
-                <span class="film-details__genre">${values.genres.details1}</span>
-                <span class="film-details__genre">${values.genres.details2}</span></td>
+                <span class="film-details__genre">${values.genre}</span>
+                <span class="film-details__genre"></span>
+                <span class="film-details__genre"></span></td>
             </tr>
           </table>
 
@@ -118,7 +132,6 @@ const createPopupTemplate = (values) => (
 
 export default class PopupView extends AbstractParentClass {
   #value = null;
-  puk;
 
   constructor(value) {
     super();
@@ -134,6 +147,7 @@ export default class PopupView extends AbstractParentClass {
     this._callback.click = callback;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeClickTheCross);
     window.addEventListener('keydown', this.#closeESC);
+
 
   }
 
@@ -154,7 +168,7 @@ export default class PopupView extends AbstractParentClass {
 
   }
 
-  clickWatchList = (callback) => {
+  onClickWatchList = (callback) => {
 
     this._callback.clickWatchList = callback;
 
@@ -169,7 +183,7 @@ export default class PopupView extends AbstractParentClass {
     this._callback.clickWatchList();
   }
 
-   clickWatched = (callback) => {
+   onClickWatched = (callback) => {
 
      this._callback.clickWatched = callback;
 
@@ -184,7 +198,7 @@ export default class PopupView extends AbstractParentClass {
     this._callback.clickWatched();
   }
 
-   clickFavorite = (callback) => {
+   onClickFavorite = (callback) => {
 
      this._callback.clickFavorite = callback;
 

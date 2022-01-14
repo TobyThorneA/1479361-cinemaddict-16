@@ -15,13 +15,13 @@ export const generateRandomValue = (array) => {
   return array[randomIndex];
 };
 
-export const generateRandomStrings = (stringsArray) => {
+export const createRandomValues = (stringsArray) => {
   const maxSentences = getRandomInteger(1,5);
   const randomSentences = [];
   for(let i = 0; i < maxSentences; i++){
     randomSentences.push(generateRandomValue(stringsArray));
   }
-  return randomSentences.join('');
+ /* return randomSentences; */    return randomSentences.join('');
 };
 
 export const getFiltersData = (array) => {
