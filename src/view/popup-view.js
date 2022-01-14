@@ -1,18 +1,5 @@
 import AbstractParentClass from './abstract-parent-class-view';
 
-const renderGenres = (genres) => {
-  const array = [];
-  if(genres < genres[1]){
-    array.push(genres);
-  }else{
-    array.push(genres);
-  }
-console.log('genres',genres)
-  console.log('array',array);
-
-  return array;
-}
-
 
 const createPopupTemplate = (values) => (
   `<section class="film-details">

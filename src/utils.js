@@ -21,7 +21,7 @@ export const createRandomValues = (stringsArray) => {
   for(let i = 0; i < maxSentences; i++){
     randomSentences.push(generateRandomValue(stringsArray));
   }
- /* return randomSentences; */    return randomSentences.join('');
+  /* return randomSentences; */    return randomSentences.join('');
 };
 
 export const getFiltersData = (array) => {
