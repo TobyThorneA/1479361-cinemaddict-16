@@ -1,62 +1,40 @@
-import AbstractParentClass from './abstract-parent-class-view';
+import AbstractView from './abstract-parrent-class-view.js';
+import {SortType} from '../consts.js';
 
-const createSort = () => `
-<ul class="sort">
-    <li><a href="#" class="sort__button3  sort__button--active"> Sort by default </a></li>
-    <li><a href="#" class="sort__button2"> Sort by date </a></li>
-    <li><a href="#" class="sort__button1"> Sort by rating </a></li>
-  </ul>
-`;
+const addActiveClass = (isActive) => isActive ? ' sort__button--active' : '';
 
-export default class SortView extends AbstractParentClass {
+const createSortContent = (currentSortType) => (
+  `<ul class="sort">
+  <li><a href="#" class="sort__button${addActiveClass(SortType.DEFAULT === currentSortType)}" data-sort-type="${SortType.DEFAULT}">Sort by default</a></li>
+  <li><a href="#" class="sort__button${addActiveClass(SortType.DATE === currentSortType)}" data-sort-type="${SortType.DATE}">Sort by date</a></li>
+  <li><a href="#" class="sort__button${addActiveClass(SortType.RATING === currentSortType)}" data-sort-type="${SortType.RATING}">Sort by rating</a></li>
+</ul>`
+);
 
-  get template() {
-    return createSort();
+export default class SortView extends AbstractView {
+  #currentSortType = null;
+
+  constructor(currentSortType) {
+    super();
+
+    this.#currentSortType = currentSortType;
   }
 
-  onClickSortRating = (callbackk) => {
-
-    this._callback.clickSortRating = callbackk;
-
-    this.element.querySelector('.sort__button1').addEventListener('click', this.#clickHandlerSortRating);
-
+  get template(){
+    return createSortContent(this.#currentSortType);
   }
 
-  onClickSortDate = (callbackk) => {
-
-    this._callback.clickSortDate = callbackk;
-
-    this.element.querySelector('.sort__button2').addEventListener('click', this.#clickHandlerSortDate);
-
+  setSortTypeChangeHandler = (callback) => {
+    this._callback.sortTypeChange = callback;
+    this.element.addEventListener('click', this.#sortTypeChangeHandler);
   }
 
-  onClickSortDefault = (callbackk) => {
-
-    this._callback.clickSortDefault = callbackk;
-
-    this.element.querySelector('.sort__button3').addEventListener('click', this.#clickHandlerSortDefault);
-
-  }
-
-  #clickHandlerSortRating = (evt) => {
+  #sortTypeChangeHandler = (evt) => {
+    if (evt.target.tagName !== 'A') {
+      return;
+    }
     evt.preventDefault();
-
-    this._callback.clickSortRating();
-
-  }
-
-  #clickHandlerSortDate = (evt) => {
-    evt.preventDefault();
-
-    this._callback.clickSortDate();
+    this._callback.sortTypeChange(evt.target.dataset.sortType);
 
   }
-
-  #clickHandlerSortDefault = (evt) => {
-    evt.preventDefault();
-
-    this._callback.clickSortDefault();
-
-  }
-
 }
