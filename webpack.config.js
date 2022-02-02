@@ -1,5 +1,4 @@
 const path = require('path');
-
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -10,7 +9,7 @@ module.exports = {
   devServer: {
     hot: false
   },
-   module: {
+  module: {
     rules: [
         {
           test: /\.js$/,
