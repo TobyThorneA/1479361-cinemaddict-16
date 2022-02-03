@@ -1,4 +1,4 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
 const createLoadingTemplate = () => (
   `<section class="films">
@@ -8,7 +8,7 @@ const createLoadingTemplate = () => (
 </section>`
 );
 
-export default class LoadingView extends AbstractView {
+export default class LoadingView extends abstractParrentView {
   get template() {
     return createLoadingTemplate();
   }

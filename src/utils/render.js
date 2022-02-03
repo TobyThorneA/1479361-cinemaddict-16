@@ -1,4 +1,4 @@
-import AbstractView from '../view/abstract-parrent-class-view.js';
+import abstractParrentView from '../view/abstract-parrent-view.js';
 
 const RenderPosition = {
   BEFOREBEGIN: 'beforebegin',
@@ -8,8 +8,8 @@ const RenderPosition = {
 };
 
 const render = (container, element, place) => {
-  const parent = container instanceof AbstractView ? container.element : container;
-  const child = element instanceof AbstractView ? element.element : element;
+  const parent = container instanceof abstractParrentView ? container.element : container;
+  const child = element instanceof abstractParrentView ? element.element : element;
   switch (place) {
     case RenderPosition.BEFOREBEGIN:
       parent.before(child);
@@ -36,7 +36,7 @@ const remove = (component) => {
   if (component === null) {
     return;
   }
-  if (!(component instanceof AbstractView)) {
+  if (!(component instanceof abstractParrentView)) {
     throw new Error('Can remove only components');
   }
 
@@ -48,8 +48,8 @@ const replace = (newElement, oldElement) => {
   if (newElement === null || oldElement === null) {
     throw new Error('Can\'t replace unexisting elements');
   }
-  const newChild = newElement instanceof AbstractView ? newElement.element : newElement;
-  const oldChild = oldElement instanceof AbstractView ? oldElement.element : oldElement;
+  const newChild = newElement instanceof abstractParrentView ? newElement.element : newElement;
+  const oldChild = oldElement instanceof abstractParrentView ? oldElement.element : oldElement;
   const parent = oldChild.parentElement;
   if (parent === null) {
     throw new Error('Parent element doesn\'t exist');

@@ -1,6 +1,6 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
-export default class SmartView extends AbstractView {
+export default class SmartView extends abstractParrentView {
   constructor() {
     super();
 

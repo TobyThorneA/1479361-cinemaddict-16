@@ -1,7 +1,7 @@
 import {createSiteMenuTemplate} from './site-menu-template.js';
-import AbstractView from '../abstract-parrent-class-view.js';
+import abstractParrentView from '../abstract-parrent-view.js';
 
-export default class SiteMenu extends AbstractView {
+export default class SiteMenu extends abstractParrentView {
   #filters = null;
   #currentFilter = null;
   #filterElements = null;

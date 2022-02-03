@@ -1,8 +1,8 @@
 import {createFilmCardTemplate} from './film-card-template.js';
 import {createElement} from '../../utils/render.js';
-import AbstractView from '../abstract-parrent-class-view.js';
+import abstractParrentView from '../abstract-parrent-view.js';
 
-export default class FilmCard extends AbstractView {
+export default class FilmCard extends abstractParrentView {
   #film = null;
   #renderedFilms = [];
   constructor(film) {

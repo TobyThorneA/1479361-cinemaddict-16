@@ -1,4 +1,4 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 import {FilterType} from '../consts.js';
 
 const NoFilmTextType = {
@@ -16,7 +16,7 @@ const createFilmListContainerTemplate = (filterType) => {
   </section>`;
 };
 
-export default class NoFilm extends AbstractView {
+export default class NoFilm extends abstractParrentView {
   #films = null;
 
   constructor(films) {

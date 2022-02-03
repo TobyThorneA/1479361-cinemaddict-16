@@ -1,12 +1,13 @@
 import {createElement} from '../utils/render.js';
 
 const SHAKE_ANIMATION_TIMEOUT = 600;
+const SECOND = 1000;
 
-export default class AbstractView {
+export default class abstractParrentView {
   #element = null;
   _callback = {};
   constructor() {
-    if (new.target === AbstractView) {throw new Error('Can\'t instantiate AbstractView, only concrete one.');
+    if (new.target === abstractParrentView) {throw new Error('Can\'t instantiate abstractParrentView, only concrete one.');
     }
   }
 
@@ -26,7 +27,7 @@ export default class AbstractView {
   }
 
   shake(callback) {
-    this.element.style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+    this.element.style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / SECOND}s`;
     setTimeout(() => {
       this.element.style.animation = '';
       callback();

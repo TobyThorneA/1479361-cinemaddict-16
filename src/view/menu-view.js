@@ -1,11 +1,11 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 const createStats = () => (
   `<nav class="main-navigation">
   <a href="#stats" class="main-navigation__additional" data-filter="Stats">Stats</a>
 </nav>`
 );
 
-export default class MenuView extends AbstractView {
+export default class MenuView extends abstractParrentView {
   get template() {
     return createStats();
   }

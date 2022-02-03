@@ -1,4 +1,4 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 import {SortType} from '../consts.js';
 
 const addActiveClass = (isActive) => isActive ? ' sort__button--active' : '';
@@ -11,7 +11,7 @@ const createSortContent = (currentSortType) => (
 </ul>`
 );
 
-export default class SortView extends AbstractView {
+export default class SortView extends abstractParrentView {
   #currentSortType = null;
 
   constructor(currentSortType) {

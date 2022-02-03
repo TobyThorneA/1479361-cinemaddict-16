@@ -1,10 +1,10 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
 const createFilmsTemplate = () => (
   '<section class="films"></section>'
 );
 
-export default class Film extends AbstractView {
+export default class Film extends abstractParrentView {
   get template(){
     return createFilmsTemplate();
   }

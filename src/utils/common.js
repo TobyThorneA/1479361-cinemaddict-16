@@ -8,7 +8,6 @@ const addClass = (submit, className) => submit ? className : '';
 const sortDate = (filmA, filmB) => FormatTime.getDate(filmB.film_info.release.date, 'YYYY') - FormatTime.getDate(filmA.film_info.release.date, 'YYYY');
 
 const sortRating = (filmA, filmB) => filmB.film_info.total_rating - filmA.film_info.total_rating;
-const sortComments = (filmA, filmB) => filmB.comments.length - filmA.comments.length;
 const onEscKeyDown = (evt, cb) => {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     evt.preventDefault();
@@ -20,4 +19,4 @@ const getHourFromMin = (mins) => ({
   mins: mins % NUMBER_MINUTES,
 });
 
-export {thoWordChange, addClass, sortDate, sortRating, sortComments, onEscKeyDown, getHourFromMin};
+export {thoWordChange, addClass, sortDate, sortRating, onEscKeyDown, getHourFromMin};

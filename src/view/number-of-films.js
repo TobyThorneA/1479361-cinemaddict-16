@@ -1,4 +1,4 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
 const createNumberOfFilms = (films) => (
   `<section class="footer__statistics">
@@ -6,7 +6,7 @@ const createNumberOfFilms = (films) => (
 </section>`
 );
 
-export default class NumberOfFilms extends AbstractView {
+export default class NumberOfFilms extends abstractParrentView {
   #films = null;
 
   constructor(films) {

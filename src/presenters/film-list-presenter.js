@@ -15,7 +15,6 @@ import ProfileView from '../view/profile-view.js';
 
 const FILM_COUNT = {
   NUMBER_OF_DISPLAYS: 5,
-  ADDITIONAL_LFILMS: 2,
 };
 const Mode = {
   DEFAULT: 'DEFAULT',
@@ -392,8 +391,6 @@ export default class FilmListPresenter {
     remove(this.#noFilmsComponent);
     remove(this.#buttonShowMoreComponent);
     remove(this.#filmMainComponent);
-    // remove(this.#filmTopRatedComponent);
-    // remove(this.#filmMostCommentedComponent);
     remove(this.#loadingComponent);
     if (resetRenderedFilmCount) {
       this.#renderedFilmCount = FILM_COUNT.NUMBER_OF_DISPLAYS;
@@ -412,6 +409,7 @@ export default class FilmListPresenter {
       remove(this.#loadingComponent);
       this.#renderSort();
     }
+
     const films = this.films;
     const filmCount = films.length;
     this.#renderProfile();
@@ -426,6 +424,5 @@ export default class FilmListPresenter {
     if (filmCount > this.#renderedFilmCount) {
       this.#renderShowMoreButton();
     }
-    // this.#enderAdditionalFilms();
   }
 }

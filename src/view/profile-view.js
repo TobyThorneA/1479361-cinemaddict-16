@@ -1,5 +1,5 @@
 import {getUserRank} from '../utils/statistics.js';
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
 const createProfileTemplate = (films) => (
   `<section class="header__profile profile">
@@ -8,7 +8,7 @@ const createProfileTemplate = (films) => (
   </section>`
 );
 
-export default class ProfileView extends AbstractView {
+export default class ProfileView extends abstractParrentView {
   #films = null;
 
   constructor(films) {

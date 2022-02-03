@@ -1,4 +1,4 @@
-import AbstractView from './abstract-parrent-class-view.js';
+import abstractParrentView from './abstract-parrent-view.js';
 
 const createFilmListContainerTemplate = ({title, isTitleHidden, isExtra, isEmpty}) => (
   `<section class="films-list ${isExtra ? 'films-list--extra' : ''}">
@@ -7,7 +7,7 @@ const createFilmListContainerTemplate = ({title, isTitleHidden, isExtra, isEmpty
   </section>`
 );
 
-export default class FilmListContainer extends AbstractView {
+export default class FilmListContainer extends abstractParrentView {
   #films = null;
 
   constructor(films) {
